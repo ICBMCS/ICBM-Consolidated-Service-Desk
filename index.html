@@ -1,0 +1,379 @@
+<html>
+    <head>
+        <title>ICBM Consolidated Service Desk</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="NXZ-Zebra-Logo-2.png">
+          <style>
+            .inputArea{
+                background-color: white;
+                opacity: 85%;
+                max-width: 1250px;
+                margin: auto;
+                padding: 15px;
+            }
+            body{
+                background: url('Dark%20Zebra.png'), black;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: center;
+                width: 99%;
+                font-family: 'Raleway', sans-serif;
+            }
+            input{
+                border: 1px solid black;
+                padding:6px;
+                width: 230px;
+                height: 30px;
+            }
+            select{
+                border: 1px solid black;
+                width: 200px;
+                height: 30px;
+            }
+            label{
+                width: 100px;
+            }
+            textarea{
+                border: 1px solid black;
+                height: 150px;
+                width: 350px;
+            }
+            button{
+                cursor: pointer;
+                border: 1px solid black;
+                background-color: white;
+                color: black;
+                width:200px;
+                height: 30px;
+            }
+            button:hover{
+                transition: 0.5s;
+                background-color: grey;
+                color: white;
+            }
+            a{
+                color: inherit;
+                text-decoration: none;
+            }
+            table{
+                background-color: white;
+            }
+
+            .header{
+                display: flex;
+                align-content: center;
+            }
+            button.clear{
+                color: white;
+                background-color: maroon;
+                border: 5px solid maroon;
+                margin-top: 15px;
+            }
+            button.clear:hover{
+                transition: 0.5s;
+                background-color: red;
+                animation: clear 1s infinite linear;
+                /* color: black; */
+
+            }
+            @keyframes clear{
+                33%{
+                    border: 5px solid black;
+                }
+                66%{
+                    border: 5px solid red;
+                }
+                100%{
+                    border: 5px solid black;
+                }
+            }
+
+        </style>
+        
+        <script>
+
+            
+
+            // Input Fields
+            var RequestName;
+            var RequestSource;
+            var Department;
+            var RANK;
+            var Phone;
+            var Email;
+            var IdNumber;
+            var AssetTag;
+            var Location1;
+            var Network;
+            var comment;
+            var Technician;
+            var issue;
+            var timeOnCall;
+
+            var display;
+
+            function update(){
+                RequestName = document.getElementById("Name").value;
+                RequestSource = document.getElementById("Source").value;
+                Department = document.getElementById("Department").value;
+                RANK = document.getElementById("RANK").value;
+                Phone = document.getElementById("Phone").value;
+                Email = document.getElementById("Email").value;
+                IdNumber = document.getElementById("IdNumber").value;
+                AssetTag = document.getElementById("AssetTag").value;
+                Location1 = document.getElementById("Location1").value;
+                Network = document.getElementById("Network").value;
+                comment = document.getElementById("comment").value;
+                Technician = document.getElementById("Technician").value;
+                issue = document.getElementById("issue").value;
+                timeOnCall = document.getElementById("timeOnCall").value;
+
+                
+                var combineValue = 'Name: ' + RequestName 
+                                + '\nSource: ' + RequestSource
+                                + '\nDepartment: ' + Department
+                                + '\nCIV/CTR/MIL: ' + RANK
+                                + '\nPhone: ' + Phone
+                                + '\nEmail: ' + Email
+                                + '\nID Number: ' + IdNumber
+                                + '\nAsset Tag: ' + AssetTag
+                                + '\nLocation: ' + Location1
+                                + '\nNetwork: ' + Network
+                                + '\nIssue: ' + issue
+                                + '\n\nComment: ' + comment
+                                + '\n\nTechnician: ' + Technician
+                                + '\nTime On Call: ' + timeOnCall + ' Minutes'
+                                + '\nDate: ' + Date();
+
+
+                display = `${combineValue}`;
+                document.querySelector("#all").innerHTML = display;
+            }
+
+            function selectcrap(){
+                document.querySelector('#all').select();
+                document.execCommand('copy');
+            }
+
+            function wipe(){
+                if(confirm("Are you sure you want to reload the page? This will remove all the data collected on this page.") ){
+                    window.location.reload();
+                }
+                else{
+                    console.log('Did Nothing')
+                }
+                // document.getElementById("Name").value = " ";
+                // document.getElementById("Source").reset();
+                // document.getElementById("Department").reset();
+                // document.getElementById("RANK").reset();
+                // document.getElementById("Phone").reset();
+                // document.getElementById("Email").reset();
+                // document.getElementById("IdNumber").reset();
+                // document.getElementById("AssetTag").reset();
+                // document.getElementById("Location1").reset();
+                // document.getElementById("Network").reset();
+                // document.getElementById("comment").reset();
+                // document.getElementById("Technician").reset();
+                // document.getElementById("issue").reset();
+
+                // document.getElementById("Name").select();
+            }
+
+            function formatPhoneNumber(phoneNumberString) {
+                var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+                var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+                if (match) {
+                    return '(' + match[1] + ') ' + match[2] + '-' + match[3];
+                }
+                return null;
+}
+
+        </script>
+
+        <script type="text/javascript">
+            window.addEventListener('keydown',function(e) {
+                if (e.keyIdentifier=='U+000A' || e.keyIdentifier=='Enter' || e.keyCode==13) {
+                    if (e.target.nodeName=='INPUT' && e.target.type=='text') {
+                        e.preventDefault();
+
+                        return false;
+                    }
+                }
+            }, true);
+        </script>
+    </head>
+    <body onload="update()">
+
+<!-- Form -->  
+<div class="inputArea">
+            <div class="header">
+                <img src="NXZ-Zebra-Logo-2.png" alt="" height="60px" style="display: inline;">
+                <h1 style="color: #9b0000; margin-bottom: 10px;">ICBM Consolidated Service Desk</h1>
+                <h5 hidden>For Temporary Use Only!</h5>
+            </div>
+            
+            <div style="padding-bottom: 25px;">
+                <a href="https://ims-con.us.baesystems.com/display/SGT/ICBM+Consolidated+Service+Desk" target="_blank"><button><strong>Roy Call Center</strong></button></a>
+                <a href="https://ims-con.us.baesystems.com/plugins/viewsource/viewpagesrc.action?pageId=184877099" target="_blank"><button><strong>Important Information</strong></button></a>
+                <a href="https://ims-con.us.baesystems.com/plugins/viewsource/viewpagesrc.action?pageId=196739741" target="_blank"><button><strong>Script</strong></button></a>
+                <a href="https://ims-con.us.baesystems.com/display/SGT/Knowledge+for+New+ICBM+Service+Techs" target="_blank"><button><strong>Knowlege Base</strong></button></a>
+            </div>
+            
+
+
+            <form id="form" onkeypress="" method="post">
+            
+            <table>
+                <tr>
+                    <td colspan="1"><label for="Technician">Technician: </label></td>
+
+                    <td>
+                        <input list="Techincians" name="Technician" id="Technician" onkeyup="update()" onchange="update()" tabindex="1">
+                            <datalist id="Techincians">
+                                <option value="Brock Priest">Brock Priest</option>
+                                <option value="Scott Thorne">Scott Thorne</option>
+                                <option value="Torin Lamberson">Torin Lamberson</option>
+                                <option value="Blake Thomas">Blake Thomas</option>
+                                <option value="Josh Smith">Josh Smith</option>
+                                <option value="Dawn Larsen">Dawn Larsen</option>
+                                <option value="Judy Sylvester">Judy Sylvester</option>
+                                <option value="Brandon Palmer">Brandon Palmer</option>
+                                <option value="Josh Reed">Josh Reed</option>
+                                <option value="Dijon Alston">Dijon Alston</option>
+                            </datalist>
+
+                    </td>
+                    <td><label for="timeOnCall">Time On Call: </label></td>
+                    <td>
+                        <input style="width:60px;" value="5" type="number" id="timeOnCall" onkeyup="update()" onchange="update()" onclick="Element.select()" tabindex="1">
+                        <p style="display: inline;">Minutes</p>
+                    </td>
+                    <td></td>
+                    
+                    
+                </tr>
+                <tr>
+                    <td><label for="Name">Name</label></td>
+                    <td><input placeholder="John Doe" type="text" id="Name" onkeyup="update()" tabindex="1"></td>
+
+                    <td><label for="AssetTag">Asset Tag: </label></td>
+                    <td><input type="text" id="AssetTag" onkeyup="update()" tabindex="7"></td>
+                </tr>
+                <tr>
+                    <td><label for="Source">Source: </label></td>
+                    <td><input disabled value="ICBM Consolidated Service Desk" style="::placeholder{color: grey;}" type="text" id="Source" onkeyup="update()" tabindex="1"></td>
+
+                    <td><label for="Location1">Location: </label></td>
+                    <td hidden><input placeholder="1575" type="text" id="" onkeyup="update()" tabindex="8"></td>
+
+                    <td>
+                        <input list="Locations" name="Location" id="Location1" onkeyup="update()" onchange="update()" tabindex="8">
+                            <datalist id="Locations">
+                                <option value="1575">1575</option>
+                                <option value="1580">1580</option>
+                                <option value="1581">1581</option>
+                                <option value="2728">2728</option>
+                                <option value="1228">1228</option>
+                                <option value="1530">1530</option>
+                                <option value="1227">1227</option>
+                            </datalist>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td><label for="Department">Department: </label></td>
+                    <td><input placeholder="NXZ" type="text" id="Department" onkeyup="update()" tabindex="2"></td>
+
+                    <td><label for="Network">Network: </label></td>
+                    <td hidden><input placeholder="C-SEIC" type="text" id="" onkeyup="update()" tabindex="9"></td>
+                    <td>
+                        <input list="Networks" name="Network" id="Network" onkeyup="update()" tabindex="9">
+                            <datalist id="Networks">
+                                <option value="NIPR">NIPR</option>
+                                <option value="SIPR">SIPR</option>
+                                <option value="Misty Sierra">Misty Sierra</option>
+                                <option value="Fences">Fences</option>
+                                <option value="U-Fences">U-Fences</option>
+                                <option value="U-Shade">U-Shade</option>
+                                <option value="SC-Fences">SC-Fences (Secret Collateral)</option>
+                                <option value="S-Fences">S-Fences</option>
+                                <option value="T-Fences">T-Fences</option>
+                                <option value="BAE GoldLink">Gold Link</option>
+                                <option value="Sharepoint">Sharepoint</option>
+                            </datalist>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td><label for="RANK">CIV/CTR/MIL: </label></td>
+                    <td>
+                        <input list="RANKS" name="RANK" id="RANK" onkeyup="update()" tabindex="3">
+                            <datalist id="RANKS">
+                                <option value="CIV">Civilian</option>
+                                <option value="CTR">Contractor</option>
+                                <option value="MIL">Military</option>
+                            </datalist>
+
+                    </td>
+
+                    
+                </tr>
+                <tr>
+                    <td><label for="Phone">Phone: </label></td>
+                    <td><input placeholder="(801) 385-2222" type="tel" id="Phone" onkeyup="update()" tabindex="4"></td>
+                    
+                </tr>
+                <tr>
+                    <td><label for="Email">Email: </label></td>
+                    <td><input placeholder="john.doe@us.af.mil" type="email" id="Email" onkeyup="update()" tabindex="5"></td>
+                </tr>
+                <tr>
+                    <td><label for="IdNumber">ID Number: </label></td>
+                    <td><input type="text" id="IdNumber" onkeyup="update()" tabindex="6"></td>
+                </tr>
+                </table>
+            <table>
+                <tr>
+                    <td><label for="comment">Comment: </label></td>
+                    <td><textarea type="text" id="comment" onkeyup="update()" tabindex="10"></textarea></td>
+
+                    <td><label for="issue">Issue: </label></td>
+                    <td><textarea type="text" id="issue" onkeyup="update()" tabindex="11"></textarea></td>
+                </tr>
+                
+            </table>
+        </form>
+            
+<!-- End Form -->
+        <table>
+            <tr>
+                <td>
+                    <h3 style="display: inline; padding-right: 37px;">Data</h3>
+                    <button style="display: inline;" onclick="selectcrap()" tabindex="999">Copy Data</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea enable="false" id="all"style="height: 250px; width:500px;" onclick="selectcrap()" tabindex="999"></textarea>
+                </td>
+            </tr>
+        </table>
+        
+        
+        <br>
+        <br>
+        <button onclick="wipe()" class="clear">Clear Form</button>
+        
+<br>
+<br>
+<br>
+
+    </div>
+
+        
+    </body>
+    </html>
