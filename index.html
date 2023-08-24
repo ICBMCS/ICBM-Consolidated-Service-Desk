@@ -5,7 +5,30 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="NXZ-Zebra-Logo-2.png">
+        
+        <script>
+            window.onload = function() {
+                var client = new XMLHttpRequest();
+                client.open('GET', '/JS/email.txt');
+                client.onreadystatechange = function() {
+                    var select = document.getElementById("1234"),
+                        options = client.responseText.split("\n"),
+                        i,
+                        _html = "";
+                    for ( i = 0; i < options.length; i++ ) {
+                        _html += "<option value=" + options[i] +">" + options[i] + "</option>";
+                    }
+                    select.innerHTML = _html;
+                }
+                client.send();
+            }
+            </script>
+
+
           <style>
+            hr{
+                border: 1px solid black;
+            }
             .inputArea{
                 background-color: white;
                 opacity: 85%;
@@ -40,6 +63,39 @@
                 height: 150px;
                 width: 350px;
             }
+            .dropdown {
+                transition: 0.3s;
+                position: relative;
+                display: inline-block;
+            }
+
+            .dropdown-content {
+                transition: 0.3s;
+                display: none;
+                position: absolute;
+                background-color: #f1f1f1;
+                min-width: 200px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+
+            .dropdown-content a {
+                transition: 0.3s;
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+            .dropdown-content a:hover {background-color: #ddd;}
+
+            .dropdown:hover .dropdown-content {
+                transition: 0.3s;
+                display: block;
+            }
+
+            .dropdown:hover .dropbtn {background-color: grey;}
+
             button{
                 cursor: pointer;
                 border: 1px solid black;
@@ -111,6 +167,7 @@
             var Technician;
             var issue;
             var timeOnCall;
+            var ticketNumber;
 
             var display;
 
@@ -129,9 +186,11 @@
                 Technician = document.getElementById("Technician").value;
                 issue = document.getElementById("issue").value;
                 timeOnCall = document.getElementById("timeOnCall").value;
+                ticketNumber = document.getElementById("ticketNumber").value;
 
                 
                 var combineValue = 'Name: ' + RequestName 
+                                + '\nTicket Number: ' + ticketNumber
                                 + '\nSource: ' + RequestSource
                                 + '\nDepartment: ' + Department
                                 + '\nCIV/CTR/MIL: ' + RANK
@@ -203,6 +262,8 @@
                 }
             }, true);
         </script>
+        
+        
     </head>
     <body onload="update()">
 
@@ -215,10 +276,31 @@
             </div>
             
             <div style="padding-bottom: 25px;">
-                <a href="https://ims-con.us.baesystems.com/display/SGT/ICBM+Consolidated+Service+Desk" target="_blank"><button><strong>Roy Call Center</strong></button></a>
+                <div class="dropdown">
+                    <a href="https://ims-con.us.baesystems.com/display/SGT/ICBM+Consolidated+Service+Desk" target="_blank"><button class="dropbtn"><strong>Roy Call Center</strong></button></a>
+                    <div class="dropdown-content">                      
+                        <a href="https://ims-con.us.baesystems.com/x/AIEeD" target="_blank">Knowledge Base</a>
+                        <a href="https://ims-con.us.baesystems.com/plugins/viewsource/viewpagesrc.action?pageId=196739741" target="_blank">Script</a>
+                    </div>
+                </div>
                 <a href="https://ims-con.us.baesystems.com/plugins/viewsource/viewpagesrc.action?pageId=184877099" target="_blank"><button><strong>Important Information</strong></button></a>
-                <a href="https://ims-con.us.baesystems.com/plugins/viewsource/viewpagesrc.action?pageId=196739741" target="_blank"><button><strong>Script</strong></button></a>
-                <a href="https://ims-con.us.baesystems.com/display/SGT/Knowledge+for+New+ICBM+Service+Techs" target="_blank"><button><strong>Knowlege Base</strong></button></a>
+                
+                <div class="dropdown">
+                    <button class="dropbtn" style="cursor: not-allowed;"><strong>CLTR</strong></button>
+                    <div class="dropdown-content">
+                        <a href="https://ims-con.us.baesystems.com/x/cohkD" target="_blank">How to: <strong>CLTR Queue</strong></a>
+                        <a href="https://ideworkspace.com/secure/Dashboard.jspa?selectPageId=45104#" target="_blank">   IDE Workspace</a>
+                    </div>
+                </div>
+                
+                <div class="dropdown">
+                    <button class="dropbtn" style="background-image: url(jira-favicon-scaled.png); background-repeat: no-repeat; background-position:right; background-position-x: 120px;"><strong>JIRA</strong></button>
+                    <div class="dropdown-content">
+                        <a href="https://jira.gbsd.fences.dso.mil/secure/Dashboard.jspa?selectPageId=14201#" target="_blank">Jira Dashboard</a>
+                        <a href="https://jira.gbsd.fences.dso.mil/servicedesk/customer/portals" target="_blank">Create Jira Ticket</a>
+                    </div>
+                </div>
+                <hr>
             </div>
             
 
@@ -241,7 +323,7 @@
                                 <option value="Judy Sylvester">Judy Sylvester</option>
                                 <option value="Brandon Palmer">Brandon Palmer</option>
                                 <option value="Josh Reed">Josh Reed</option>
-                                <option value="Dijon Alston">Dijon Alston</option>
+                                <option value="Morgan Keller">Morgan Keller</option>
                             </datalist>
 
                     </td>
@@ -258,12 +340,21 @@
                     <td><label for="Name">Name</label></td>
                     <td><input placeholder="John Doe" type="text" id="Name" onkeyup="update()" tabindex="1"></td>
 
-                    <td><label for="AssetTag">Asset Tag: </label></td>
-                    <td><input type="text" id="AssetTag" onkeyup="update()" tabindex="7"></td>
+                    <td><label for="ticketNumber">Ticket Number: </label></td>
+                    <td><input type="text" id="ticketNumber" onkeyup="update()" tabindex="7" value="SNTL-"></td>
+
                 </tr>
                 <tr>
                     <td><label for="Source">Source: </label></td>
-                    <td><input disabled value="ICBM Consolidated Service Desk" style="::placeholder{color: grey;}" type="text" id="Source" onkeyup="update()" tabindex="1"></td>
+                    <td><input disabled value="ICBM Consolidated Service Desk - Phone" style="::placeholder{color: grey;}" type="text" id="Source" onkeyup="update()" tabindex="1"></td>
+
+                    <td><label for="AssetTag">Asset Tag: </label></td>
+                    <td><input type="text" id="AssetTag" onkeyup="update()" tabindex="7"></td>
+
+                </tr>
+                <tr>
+                    <td><label for="Department">Department: </label></td>
+                    <td><input placeholder="NXZ" type="text" id="Department" onkeyup="update()" tabindex="2"></td>
 
                     <td><label for="Location1">Location: </label></td>
                     <td hidden><input placeholder="1575" type="text" id="" onkeyup="update()" tabindex="8"></td>
@@ -284,9 +375,16 @@
 
                 </tr>
                 <tr>
-                    <td><label for="Department">Department: </label></td>
-                    <td><input placeholder="NXZ" type="text" id="Department" onkeyup="update()" tabindex="2"></td>
+                    <td><label for="RANK">CIV/CTR/MIL: </label></td>
+                    <td>
+                        <input list="RANKS" name="RANK" id="RANK" onkeyup="update(), contractorName()" tabindex="3">
+                            <datalist id="RANKS">
+                                <option value="CIV">Civilian</option>
+                                <option value="CTR">Contractor</option>
+                                <option value="MIL">Military</option>
+                            </datalist>
 
+                    </td>
                     <td><label for="Network">Network: </label></td>
                     <td hidden><input placeholder="C-SEIC" type="text" id="" onkeyup="update()" tabindex="9"></td>
                     <td>
@@ -303,19 +401,6 @@
                                 <option value="T-Fences">T-Fences</option>
                                 <option value="BAE GoldLink">Gold Link</option>
                                 <option value="Sharepoint">Sharepoint</option>
-                            </datalist>
-
-                    </td>
-
-                </tr>
-                <tr>
-                    <td><label for="RANK">CIV/CTR/MIL: </label></td>
-                    <td>
-                        <input list="RANKS" name="RANK" id="RANK" onkeyup="update()" tabindex="3">
-                            <datalist id="RANKS">
-                                <option value="CIV">Civilian</option>
-                                <option value="CTR">Contractor</option>
-                                <option value="MIL">Military</option>
                             </datalist>
 
                     </td>
@@ -358,7 +443,7 @@
             </tr>
             <tr>
                 <td>
-                    <textarea enable="false" id="all"style="height: 250px; width:500px;" onclick="selectcrap()" tabindex="999"></textarea>
+                    <textarea enable="false" id="all"style="height: 280px; width:500px;" onclick="selectcrap()" tabindex="999"></textarea>
                 </td>
             </tr>
         </table>
@@ -367,6 +452,9 @@
         <br>
         <br>
         <button onclick="wipe()" class="clear">Clear Form</button>
+        <select name="1234" id="1234" hidden>
+            
+        </select>
         
 <br>
 <br>
