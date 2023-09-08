@@ -31,7 +31,7 @@
             }
             .inputArea{
                 background-color: white;
-                opacity: 85%;
+                opacity: 95%;
                 max-width: 1250px;
                 margin: auto;
                 padding: 15px;
@@ -168,6 +168,7 @@
             var issue;
             var timeOnCall;
             var ticketNumber;
+            var generalTicketIdea;
 
             var display;
 
@@ -187,6 +188,7 @@
                 issue = document.getElementById("issue").value;
                 timeOnCall = document.getElementById("timeOnCall").value;
                 ticketNumber = document.getElementById("ticketNumber").value;
+                generalTicketIdea = document.getElementById("generalTicketIdea").value;
 
                 
                 var combineValue = 'Name: ' + RequestName 
@@ -209,6 +211,41 @@
 
                 display = `${combineValue}`;
                 document.querySelector("#all").innerHTML = display;
+                emailMessage();
+            }
+
+            function emailMessage(){
+                var newLine = '\n'
+                var subject = 'ICBM Consolidated Service Desk - Ticket Number: ' + ticketNumber;
+                var emailMessageText = 'Message for ' + RequestName + ','
+                                        + newLine + newLine + 'Thank you for contacting the ICBM Consolidated Service Desk.'
+                                        + newLine + newLine + 'Your ticket has been created regarding, ' + generalTicketIdea + '.' + newLine + 'https://jira.gbsd.fences.dso.mil/servicedesk/customer/portal/2/' + ticketNumber
+                                        + newLine + newLine + 'If you have any questions or need further assistance, feel free to contact us at (385) 393-2222.'
+                                        + newLine + newLine + 'Thank You and have a wonderful day,'
+                                        + newLine + 'ICBM Consolidated Service Desk';
+
+                document.querySelector('#EmailMessageText').innerHTML = emailMessageText;
+                
+            }
+
+            function emailMessageText(){
+
+                if(ticketNumber == "SNTL-" || !ticketNumber){
+                    alert("Don't forget a ticket number!");
+                    document.getElementById("ticketNumber").focus();
+                    return;
+                }
+
+                var newLine = '%0D%0A'
+                var subject = 'ICBM Consolidated Service Desk - Ticket Number: ' + ticketNumber;
+                var emailMessageText = 'Message for ' + RequestName + ','
+                                        + newLine + newLine + 'Thank you for contacting the ICBM Consolidated Service Desk.'
+                                        + newLine + newLine + 'Your ticket has been created regarding, ' + generalTicketIdea + '.' + newLine + 'https://jira.gbsd.fences.dso.mil/servicedesk/customer/portal/2/' + ticketNumber
+                                        + newLine + newLine + 'If you have any questions or need further assistance, feel free to contact us at (385) 393-2222.'
+                                        + newLine + newLine + 'Thank You and have a wonderful day,'
+                                        + newLine + 'ICBM Consolidated Service Desk';
+
+                window.open('mailto:' + Email + '?subject=' + subject + '&body=' + emailMessageText);
             }
 
             function selectcrap(){
@@ -277,8 +314,9 @@
             
             <div style="padding-bottom: 25px;">
                 <div class="dropdown">
-                    <a href="https://ims-con.us.baesystems.com/display/SGT/ICBM+Consolidated+Service+Desk" target="_blank"><button class="dropbtn"><strong>Roy Call Center</strong></button></a>
-                    <div class="dropdown-content">                      
+                    <button class="dropbtn"><strong>Roy Call Center</strong></button>
+                    <div class="dropdown-content">   
+                        <a href="https://ims-con.us.baesystems.com/display/SGT/ICBM+Consolidated+Service+Desk" target="_blank">Home Page</a>                   
                         <a href="https://ims-con.us.baesystems.com/x/AIEeD" target="_blank">Knowledge Base</a>
                         <a href="https://ims-con.us.baesystems.com/plugins/viewsource/viewpagesrc.action?pageId=196739741" target="_blank">Script</a>
                     </div>
@@ -342,6 +380,9 @@
 
                     <td><label for="ticketNumber">Ticket Number: </label></td>
                     <td><input type="text" id="ticketNumber" onkeyup="update()" tabindex="7" value="SNTL-"></td>
+
+                    <td><label for="generalTicketIdea">General Ticket Idea</label></td>
+                    <td><input type="text" id="generalTicketIdea" onkeyup="update()" tabindex="15"></td>
 
                 </tr>
                 <tr>
@@ -440,10 +481,16 @@
                     <h3 style="display: inline; padding-right: 37px;">Data</h3>
                     <button style="display: inline;" onclick="selectcrap()" tabindex="999">Copy Data</button>
                 </td>
+                <td>
+                    <button onclick="emailMessageText()" tabindex="999">Email Message</button>
+                </td>
             </tr>
             <tr>
                 <td>
                     <textarea enable="false" id="all"style="height: 280px; width:500px;" onclick="selectcrap()" tabindex="999"></textarea>
+                </td>
+                <td>
+                    <textarea enable="false" id="EmailMessageText" style="height: 280px; width:500px;" tabindex="999"></textarea>
                 </td>
             </tr>
         </table>
