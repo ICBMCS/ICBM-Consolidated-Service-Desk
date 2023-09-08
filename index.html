@@ -29,12 +29,28 @@
             hr{
                 border: 1px solid black;
             }
-            .inputArea{
+            iframe{
+                max-width: 660px;
+                width: 100%;
+                margin: auto;
+                height: 100%;
+            }
+            .left{
                 background-color: white;
                 opacity: 95%;
                 max-width: 1250px;
-                margin: auto;
+                /*margin: auto;*/
                 padding: 15px;
+                float: left;
+            }
+            .right{
+                background-color: white;
+                opacity: 95%;
+                max-width: 660px;
+                margin: auto;
+                right: 0;
+                padding: 15px;
+                float: right;
             }
             body{
                 background: url('Dark%20Zebra.png'), black;
@@ -305,7 +321,7 @@
     <body onload="update()">
 
 <!-- Form -->  
-<div class="inputArea">
+<div class="left">
             <div class="header">
                 <img src="NXZ-Zebra-Logo-2.png" alt="" height="60px" style="display: inline;">
                 <h1 style="color: #9b0000; margin-bottom: 10px;">ICBM Consolidated Service Desk</h1>
@@ -503,11 +519,13 @@
             
         </select>
         
-<br>
-<br>
-<br>
-
-    </div>
+        <br>
+        <br>
+        <br>
+</div>
+<div class="right">
+    <iframe src="google.com"></iframe>
+</div>
 
         
     </body>
